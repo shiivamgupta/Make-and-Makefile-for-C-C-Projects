@@ -1,4 +1,4 @@
-# Make-and-Makefile-for-C-C-Projects
+# Make-and-Makefile-for-C-C++-Projects
 
 # Explanation:- 
 
