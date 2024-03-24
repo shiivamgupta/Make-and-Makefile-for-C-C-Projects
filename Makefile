@@ -33,6 +33,25 @@ CXX_COMPILER_CALL = $(CXX) $(CXXFLAGS) $(CPPFLAGS)
 
 CXX_SOURCES = $(wildcard $(SOURCE_DIR)/*.cc)
 CXX_OBJECTS = $(patsubst $(SOURCE_DIR)/%.cc, $(BUILD_DIR)/%.o, $(CXX_SOURCES))
+####################
+## Extra Commands ##
+####################
+#find path to all *.c files in the directory
+SRC=$(shell find -iname "*.c")
+
+#replace all the *.c with *.o
+OBJS=$(patsubst %.c,%.o,$(SRC))
+
+#Find all directories that have the *.h file
+INC=$(shell find . -name "*.h" -printf '%h/')
+
+#Depends on all *.o files
+$(EXECUTABLE_NAME): $(OBJS)
+	gcc -o $@ $^
+
+#for every file foo.o depends on foo.c [replace .o with .c]
+%.o: %.c
+	gcc -I$(INC) -c $^ -o $@
 
 ##############
 ## TARGETS  ##
